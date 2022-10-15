@@ -2,7 +2,6 @@ import { StyleSheet, Text, View, Image, ImageBackground, StatusBar } from 'react
 import { Home } from './src/Screens/Home';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { NavigationContainer } from '@react-navigation/native';
-import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { Explore } from './src/Screens/Explore';
 import { Pedidos } from './src/Screens/Pedidos';
 import { Profile } from './src/Screens/Profile';
@@ -13,7 +12,7 @@ export default function App() {
     <NavigationContainer>
       <StatusBar barStyle={"dark-content"} backgroundColor="transparent"/>
       <Tab.Navigator
-      initialRouteName="Feed"
+      initialRouteName="Home"
       screenOptions={{
         tabBarActiveTintColor: '#e91e63',
         tabBarInactiveTintColor: 'black',

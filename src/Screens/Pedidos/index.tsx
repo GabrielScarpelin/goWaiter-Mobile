@@ -1,12 +1,19 @@
 import React from 'react';
 import { View, Text } from 'react-native';
+import { HeaderComponent } from '../../components/HeaderComponent';
 
 import { styles } from './styles';
 
-export function Pedidos() {
+interface navigationProps{
+  navigation: {
+    navigate: Function
+  }
+}
+
+export function Pedidos({ navigation }: navigationProps) {
   return (
     <View style={styles.container}>
-        <Text>Carrinho tela</Text>
+        <HeaderComponent navigation={ navigation }/>
     </View>
   );
 }

@@ -1,30 +1,21 @@
 import React from 'react';
-import { View, Text, TouchableOpacity, Image, StatusBarStyle, StatusBar, Button } from 'react-native';
-import logoGoWaiter from '../../assets/logo.png'
-import imgUser from '../../assets/perfil-cima.png'
+import { View, Text, TouchableOpacity, Image} from 'react-native';
 import imgLocation from '../../assets/location.png'
 import imgDesconto from '../../assets/desconto.png'
 import imgLike from '../../assets/like1.png'
-import { ButtonTouchable } from '../../components/ButtonTouchable';
+import { HeaderComponent } from '../../components/HeaderComponent'
 import { styles } from './styles';
 
-export function Home() {
+interface navigationProps{
+  navigation: {
+    navigate: Function
+  }
+}
+
+export function Home({ navigation }: navigationProps) {
   return (
     <View style={styles.container}>
-      <View style={styles.imagesContainer}>
-        <Image
-          source={logoGoWaiter}
-          style={styles.imageLogo}
-          resizeMethod={"scale"}
-          resizeMode={"contain"}
-        />
-        <Image
-          source={imgUser}
-          style={styles.imageUser}
-          resizeMethod={"scale"}
-          resizeMode={"contain"}
-        />
-      </View>
+      <HeaderComponent navigation={ navigation }/>
       <View style={styles.viewButton}>
         <TouchableOpacity style={styles.containerButton}>
           <View>
