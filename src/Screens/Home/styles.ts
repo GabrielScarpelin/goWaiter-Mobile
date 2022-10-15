@@ -27,9 +27,9 @@ export const styles = StyleSheet.create({
     display: 'flex',
     padding: 12,
     flexDirection: 'row',
-    justifyContent: 'center',
+    justifyContent: 'space-evenly',
     alignItems:'center',
-    backgroundColor: '#DD494C',
+    backgroundColor: '#971515',
     borderRadius: 6,
     height: 160,
     marginVertical: 40

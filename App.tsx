@@ -4,8 +4,9 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { NavigationContainer } from '@react-navigation/native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { Explore } from './src/Screens/Explore';
-import { Cart } from './src/Screens/Cart';
+import { Pedidos } from './src/Screens/Pedidos';
 import { Profile } from './src/Screens/Profile';
+import { HomeIcon, SearchIcon, OrderIcon, ProfileIcon } from './src/components/TabIcons/'
 const Tab = createBottomTabNavigator()
 export default function App() {
   return (
@@ -15,30 +16,34 @@ export default function App() {
       initialRouteName="Feed"
       screenOptions={{
         tabBarActiveTintColor: '#e91e63',
+        tabBarInactiveTintColor: 'black',
         headerShown: false,
+        tabBarStyle: {
+          height: 60
+        }
       }}>
         <Tab.Screen component={Home} name='Home' options={{
-          tabBarLabel: '',
+          tabBarLabel: 'Início',
           tabBarIcon: ({focused, color, size})=> {
-            return focused ? <MaterialCommunityIcons color={color} name='home' size={32}/> : <MaterialCommunityIcons color={color} name='home' size={24}/>
+            return focused ? <HomeIcon color={color} size={44}/> : <HomeIcon color={color} size={44}/>
           }
         }}/>
         <Tab.Screen component={Explore} name='Search' options={{
-          tabBarLabel: '',
+          tabBarLabel: 'Pesquisar',
           tabBarIcon: ({focused, color, size})=> {
-            return (<MaterialCommunityIcons color={color} name='magnify' size={size}/>)
+            return focused ? <SearchIcon color={color} size={44}/> : <SearchIcon color={color} size={44}/>
           }
         }}/>
-        <Tab.Screen component={Cart} name='Carrinho' options={{
-          tabBarLabel: '',
+        <Tab.Screen component={Pedidos} name='Pedidos' options={{
+          tabBarLabel: 'Pedidos',
           tabBarIcon: ({focused, color, size})=> {
-            return (<MaterialCommunityIcons color={color} name='cart' size={size}/>)
+            return focused ? <OrderIcon color={color} size={44}/> : <OrderIcon color={color} size={44}/>
           }
         }}/>
         <Tab.Screen component={Profile} name='Perfil' options={{
-          tabBarLabel: '',
+          tabBarLabel: 'Perfil',
           tabBarIcon: ({focused, color, size})=> {
-            return (<MaterialCommunityIcons color={color} name='face-man-profile' size={size}/>)
+            return focused ? <ProfileIcon color={color} size={44}/> : <ProfileIcon color={color} size={44}/>
           }
         }}/>
       </Tab.Navigator>

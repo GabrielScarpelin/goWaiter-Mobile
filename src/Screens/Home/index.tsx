@@ -2,8 +2,9 @@ import React from 'react';
 import { View, Text, TouchableOpacity, Image, StatusBarStyle, StatusBar, Button } from 'react-native';
 import logoGoWaiter from '../../assets/logo.png'
 import imgUser from '../../assets/perfil-cima.png'
-import imgPrato from '../../assets/pratos.png'
+import imgLocation from '../../assets/location.png'
 import imgDesconto from '../../assets/desconto.png'
+import imgLike from '../../assets/like1.png'
 import { ButtonTouchable } from '../../components/ButtonTouchable';
 import { styles } from './styles';
 
@@ -30,7 +31,7 @@ export function Home() {
             <Text style={styles.textTitle}>Proximos à mim</Text>
           </View>
           <Image
-            source={imgPrato}
+            source={imgLocation}
             resizeMethod={"scale"}
             resizeMode={"contain"}
             style={styles.imgFigure}
@@ -40,6 +41,15 @@ export function Home() {
           <Text style={styles.textTitle}>Custo benefício</Text>
           <Image
             source={imgDesconto}
+            resizeMethod={"scale"}
+            resizeMode={"contain"}
+            style={styles.imgFigure}
+          />
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.containerButton}>
+          <Text style={styles.textTitle}>Melhores avaliados</Text>
+          <Image
+            source={imgLike}
             resizeMethod={"scale"}
             resizeMode={"contain"}
             style={styles.imgFigure}
