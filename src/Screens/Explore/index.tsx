@@ -7,7 +7,8 @@ import { styles } from './styles';
 interface navigationProps{
   navigation: {
     navigate: Function
-  }
+  },
+  route: object
 }
 
 export function Explore({ navigation }: navigationProps) {

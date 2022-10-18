@@ -1,3 +1,4 @@
+import React, { useState, useEffect } from 'react'
 import { StyleSheet, Text, View, Image, ImageBackground, StatusBar } from 'react-native';
 import { Home } from './src/Screens/Home';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
@@ -6,48 +7,53 @@ import { Explore } from './src/Screens/Explore';
 import { Pedidos } from './src/Screens/Pedidos';
 import { Profile } from './src/Screens/Profile';
 import { HomeIcon, SearchIcon, OrderIcon, ProfileIcon } from './src/components/TabIcons/'
+import { Login } from './src/Screens/Login';
+
 const Tab = createBottomTabNavigator()
 export default function App() {
-  return (
-    <NavigationContainer>
-      <StatusBar barStyle={"dark-content"} backgroundColor="transparent"/>
-      <Tab.Navigator
-      initialRouteName="Home"
-      screenOptions={{
-        tabBarActiveTintColor: '#e91e63',
-        tabBarInactiveTintColor: 'black',
-        headerShown: false,
-        tabBarStyle: {
-          height: 60
+  const [isSigned, setIsSigned] = useState(false)
+  const [userObject, setUserObject] = useState({})
+  return isSigned ? (
+  <NavigationContainer>
+    <StatusBar barStyle={"dark-content"} backgroundColor="transparent"/>
+    <Tab.Navigator
+    initialRouteName="Home"
+    screenOptions={{
+      tabBarActiveTintColor: '#e91e63',
+      tabBarInactiveTintColor: 'black',
+      headerShown: false,
+      tabBarStyle: {
+        minHeight: 70,
+        paddingBottom: 5
+      }
+    }}>
+      <Tab.Screen component={Home} initialParams={userObject} name='Home' options={{
+        tabBarLabel: 'Início',
+        tabBarIcon: ({focused, color, size})=> {
+          return focused ? <HomeIcon color={color} size={44}/> : <HomeIcon color={color} size={44}/>
+        },
+      }}/>
+      <Tab.Screen component={Explore} name='Search' options={{
+        tabBarLabel: 'Pesquisar',
+        tabBarIcon: ({focused, color, size})=> {
+          return focused ? <SearchIcon color={color} size={44}/> : <SearchIcon color={color} size={44}/>
         }
-      }}>
-        <Tab.Screen component={Home} name='Home' options={{
-          tabBarLabel: 'Início',
-          tabBarIcon: ({focused, color, size})=> {
-            return focused ? <HomeIcon color={color} size={44}/> : <HomeIcon color={color} size={44}/>
-          }
-        }}/>
-        <Tab.Screen component={Explore} name='Search' options={{
-          tabBarLabel: 'Pesquisar',
-          tabBarIcon: ({focused, color, size})=> {
-            return focused ? <SearchIcon color={color} size={44}/> : <SearchIcon color={color} size={44}/>
-          }
-        }}/>
-        <Tab.Screen component={Pedidos} name='Pedidos' options={{
-          tabBarLabel: 'Pedidos',
-          tabBarIcon: ({focused, color, size})=> {
-            return focused ? <OrderIcon color={color} size={44}/> : <OrderIcon color={color} size={44}/>
-          }
-        }}/>
-        <Tab.Screen component={Profile} name='Perfil' options={{
-          tabBarLabel: 'Perfil',
-          tabBarIcon: ({focused, color, size})=> {
-            return focused ? <ProfileIcon color={color} size={44}/> : <ProfileIcon color={color} size={44}/>
-          }
-        }}/>
-      </Tab.Navigator>
-    </NavigationContainer>
-  );
+      }}/>
+      <Tab.Screen component={Pedidos} initialParams={userObject} name='Pedidos' options={{
+        tabBarLabel: 'Pedidos',
+        tabBarIcon: ({focused, color, size})=> {
+          return focused ? <OrderIcon color={color} size={44}/> : <OrderIcon color={color} size={44}/>
+        }
+      }}/>
+      <Tab.Screen component={Profile} initialParams={userObject} name='Perfil' options={{
+        tabBarLabel: 'Perfil',
+        tabBarIcon: ({focused, color, size})=> {
+          return focused ? <ProfileIcon color={color} size={44}/> : <ProfileIcon color={color} size={44}/>
+        }
+      }}/>
+    </Tab.Navigator>
+  </NavigationContainer>
+  ) : <Login setIsSigned={setIsSigned} setUserObject={setUserObject}/>
 }
 
 const styles = StyleSheet.create({

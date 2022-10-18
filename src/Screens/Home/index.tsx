@@ -9,10 +9,17 @@ import { styles } from './styles';
 interface navigationProps{
   navigation: {
     navigate: Function
+  },
+  route: {
+    params: {
+      id: string,
+      nome: string,
+      uri_foto_usuario: string,
+    }
   }
 }
 
-export function Home({ navigation }: navigationProps) {
+export function Home({ navigation, route }: navigationProps) {
   return (
     <View style={styles.container}>
       <HeaderComponent navigation={ navigation }/>
