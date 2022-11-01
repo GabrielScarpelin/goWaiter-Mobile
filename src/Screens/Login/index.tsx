@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import { View, Text, TextInput, Image, TouchableOpacity } from 'react-native';
 import logo from '../../assets/logoCorInvertida.png'
 import fritaBackground from '../../assets/fritasBackground.png'

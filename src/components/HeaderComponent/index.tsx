@@ -1,16 +1,17 @@
 import React from 'react';
 import { View, Image, TouchableWithoutFeedback } from 'react-native';
 import logoGoWaiter from '../../assets/logo.png'
-import imgUser from '../../assets/perfil-cima.png'
 import { styles } from './styles';
-
+import imgUser from '../../assets/perfil-cima.png'
 interface navigationProps{
   navigation: {
     navigate: Function
-  }
+  },
+  uri_foto_usuario: string
 }
 
-export function HeaderComponent({ navigation }: navigationProps) {
+export function HeaderComponent({ navigation, uri_foto_usuario }: navigationProps) {
+  console.log(uri_foto_usuario)
   return (
     <View style={styles.imagesContainer}>
       <TouchableWithoutFeedback
@@ -31,10 +32,9 @@ export function HeaderComponent({ navigation }: navigationProps) {
         }}
       >
         <Image
-          source={imgUser}
+          source={{uri: uri_foto_usuario ? "http://192.168.10.106:3333"+uri_foto_usuario.replace('.', '') : imgUser}}
           style={styles.imageUser}
-          resizeMethod={"scale"}
-          resizeMode={"contain"}
+          resizeMode={'cover'}
         />
       </TouchableWithoutFeedback>
     </View>

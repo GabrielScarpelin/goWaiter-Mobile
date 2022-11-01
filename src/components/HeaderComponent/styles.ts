@@ -6,6 +6,7 @@ export const styles = StyleSheet.create({
     paddingVertical: 12,
     paddingHorizontal: 24,
     justifyContent: "space-between",
+    alignItems: 'center',
     width: "100%",
   },
   imageLogo: {
@@ -13,7 +14,9 @@ export const styles = StyleSheet.create({
     height: 42,
   },
   imageUser: {
-    width: 42.1,
-    height: 40,
+    width: 60.1,
+    height: undefined,
+    borderRadius: 30,
+    aspectRatio: 512 / 512
   }
 });
