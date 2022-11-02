@@ -3,7 +3,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 const getCart = async ()=>{
     try {
         const carrinhoData = await AsyncStorage.getItem('carrinho')
-        return carrinhoData != null ? JSON.parse(carrinhoData) : null
+        return carrinhoData != null ? JSON.parse(carrinhoData) : []
     }
     catch(erro){
         return erro

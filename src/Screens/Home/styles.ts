@@ -53,5 +53,7 @@ export const styles = StyleSheet.create({
     width: '100%',
     display: 'flex',
     alignItems: 'center',
+    backgroundColor: 'white',
+    flex: 1,
   }
 });

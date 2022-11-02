@@ -13,7 +13,6 @@ import myTabParamsList from '../../type'
 import getLocation from 'react-native-get-location'
 import Geolocation from 'react-native-geolocation-service';
 import { getCart } from '../../code/cartMemoryControl';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 
 type navigationProps = {
   navigation: BottomTabNavigationProp <myTabParamsList, 'Home'>

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import { StyleSheet, Text, View, Image, ImageBackground, StatusBar } from 'react-native';
 import { Home } from './src/Screens/Home';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
@@ -7,7 +7,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { Explore } from './src/Screens/Explore';
 import { Pedidos } from './src/Screens/Pedidos';
 import { Perfil } from './src/Screens/Perfil';
-import { HomeIcon, SearchIcon, OrderIcon, ProfileIcon } from './src/components/TabIcons/'
+import { HomeIcon, SearchIcon, OrderIcon, ProfileIcon, CartIcon } from './src/components/TabIcons/'
 import { Login } from './src/Screens/Login';
 import myTabParamsList from './src/type'
 import { Cart } from './src/Screens/Cart';
@@ -17,7 +17,7 @@ const Tab = createBottomTabNavigator<myTabParamsList>()
 
 export default function App() {
   const [isSigned, setIsSigned] = useState(false)
-  const [userObject, setUserObject] = useState({})
+  const [userObject, setUserObject] = useState({id: '', nome: '', uri_foto_usuario: '', email: '', telefone: ''})
   return isSigned ? (
   <NavigationContainer>
     <StatusBar barStyle={"dark-content"} backgroundColor="transparent"/>
@@ -37,7 +37,7 @@ export default function App() {
         tabBarIcon: ({focused, color, size})=> {
           return focused ? <HomeIcon color={color} size={44}/> : <HomeIcon color={color} size={44}/>
         },
-      }}/>
+      }} />
       <Tab.Screen component={Explore} name='Search' initialParams={userObject} options={{
         tabBarLabel: 'Pesquisar',
         tabBarIcon: ({focused, color, size})=> {
@@ -47,7 +47,7 @@ export default function App() {
       <Tab.Screen component={Cart} name='Cart' options={{
         tabBarLabel: 'Carrinho',
         tabBarIcon: ({focused, color, size})=> {
-          return focused ? <SearchIcon color={color} size={44}/> : <SearchIcon color={color} size={44}/>
+          return focused ? <CartIcon color={color} size={44}/> : <CartIcon color={color} size={44}/>
         }
       }}/>
       <Tab.Screen component={Pedidos} initialParams={userObject} name='Pedidos' options={{
@@ -56,7 +56,7 @@ export default function App() {
           return focused ? <OrderIcon color={color} size={44}/> : <OrderIcon color={color} size={44}/>
         }
       }}/>
-      <Tab.Screen component={Perfil} initialParams={ userObject } name='Perfil' options={{
+      <Tab.Screen component={Perfil} initialParams={ [ userObject, {setIsSigned}] } name='Perfil' options={{
         tabBarLabel: 'Perfil',
         tabBarIcon: ({focused, color, size})=> {
           return focused ? <ProfileIcon color={color} size={44}/> : <ProfileIcon color={color} size={44}/>

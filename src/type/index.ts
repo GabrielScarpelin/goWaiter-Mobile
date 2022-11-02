@@ -13,13 +13,15 @@ type myTabParamsList = {
       id: string,
       nome: string,
     },
-    Perfil: {
+    Perfil: [{
       id: string,
       nome: string,
       uri_foto_usuario: string,
       email: string,
       telefone: string
-    },
+    }, {
+      setIsSigned: Function,
+    }],
     Cart: {
       id: string,
       nome: string,
