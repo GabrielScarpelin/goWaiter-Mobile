@@ -25,10 +25,17 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
       },
-      "package": "com.development.goWaiter"
+      "package": "com.development.goWaiter",
+      "permissions": ["ACCESS_FINE_LOCATION", "ACCESS_COARSE_LOCATION", "ACCESS_MEDIA_LOCATION"]
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "extra": {
+      "eas": {
+        "projectId": "076e3fe3-24b3-4ead-b8e7-c35e682fb98c"
+      }
+    },
+    "plugins" : []
   }
 }

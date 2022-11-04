@@ -32,8 +32,8 @@ export function DropQuestion(props: DropQuestionProps) {
             <View>
                 <View style={[styles.dropDownQuestion, opened ? {marginTop: 16} : {}]}>
                     <View style={{display: 'flex', justifyContent: 'center', flexDirection: 'row'}}>
-                        <Text style={{fontSize: 20}}>Q:</Text>
-                        <Text style={{fontSize: 20, marginLeft: 8}}>{props.pergunta}</Text>
+                        <Text style={{fontSize: 20, maxWidth: '90%'}}>Q: {props.pergunta}</Text>
+                        <Text style={{fontSize: 20, marginLeft: 8}}></Text>
                     </View>
                     <Animated.Image source={setaDireita} style={{rotation: animValue, alignSelf: 'center', marginRight: 24}}/>
                 </View>

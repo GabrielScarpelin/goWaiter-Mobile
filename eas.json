@@ -1,0 +1,33 @@
+{
+  "cli": {
+    "version": ">= 2.6.0"
+  },
+  "build": {
+    "development": {
+      "distribution": "internal",
+      "developmentClient": true,
+      "android": {
+        "gradleCommand": ":app:assembleDebug",
+        "buildType" : "apk"
+      },
+      "ios": {
+        "buildConfiguration": "Debug"
+      }
+    },
+    "preview": {
+      "distribution": "internal",
+      "developmentClient": true,
+      "android": {
+        "buildType" : "apk"
+      }
+    },
+    "production": {
+      "android": {
+        "buildType" : "apk"
+      }
+    }
+  },
+  "submit": {
+    "production": {}
+  }
+}

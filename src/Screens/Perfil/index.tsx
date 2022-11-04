@@ -100,12 +100,12 @@ export function Perfil({ navigation, route }: navigationProps) {
       <ProfileStack.Navigator screenOptions={{
         animation: 'slide_from_bottom',
         headerTitle: ()=> (<Image source={logoGoWaiter} style={{
-          width: 99.1,
-          height: 42,
-          marginLeft: 40
+          width: 120,
+          height: undefined,
+          marginLeft: 30,
+          aspectRatio: 991 / 417
         }} 
-        resizeMethod={"scale"}
-        resizeMode={"contain"}/>
+        resizeMode={"cover"}/>
         ),
         headerShadowVisible: false,
         headerBackVisible: false
@@ -142,7 +142,7 @@ function HomeProfilePage({ navigation, route }: navHomeStackProps){
   return (
     <View style={{flex: 1, width: '100%', alignItems: 'center', backgroundColor: 'white'}}>
       <TouchableOpacity 
-      style={[styles.optionsButton, {marginTop: 150}]}
+      style={[styles.optionsButton, {marginTop: 64}]}
       onPress={()=>{
         navigation.navigate('EditProfile', {
           id: route.params.id,

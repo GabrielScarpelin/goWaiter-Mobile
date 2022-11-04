@@ -29,14 +29,14 @@ const RenderItems = ({ item }:{
     uri_foto_restaurante: string,
     categoria_principal: string
   }
-}) =>{
+}) => {
   return (
     <View>
       <TouchableWithoutFeedback onPress={()=>{
 
       }}>
         <View>
-          <Image source={{uri: `http://${ip}:3333/${item.uri_foto_restaurante.replace('.', '')}`}}/>
+          <Image source={{uri: `http://${ip}:3333${console.log(item.uri_foto_restaurante.replace('.', ''))}`}}/>
           <Text>{item.nome}</Text>
           <Text>{item.endereco}</Text>
           <Text>{item.categoria_principal}</Text>
@@ -50,7 +50,10 @@ const RestauranteSearchFoods = ()=>{
   const [selectedBtn, setSelected] = useState(1)
   const [atualRestaurantesRequested, setAtualRestaurantes] = useState([])
   useEffect(()=>{
-    axios.get(`http://${ip}:3333/restaurantes/-23.6831521,-46.6625531`).then(resposta => setAtualRestaurantes(resposta.data))
+    axios.get(`http://${ip}:3333/restaurantes/-23.6831521,-46.6625531`).then(resposta => {
+      setAtualRestaurantes(resposta.data)
+      console.log(atualRestaurantesRequested)
+    })
   }, [])
   return (
     <View>
@@ -106,8 +109,6 @@ export function Explore({ navigation, route }: navigationProps) {
             resizeMethod={"scale"}
             resizeMode={"contain"}/>
           }}/>
-          <Stack.Screen name='restauranteScreen' component={RestauranteScreen}/>
-          <Stack.Screen name='pratoScreen' component={PratoReserva}/>
         </Stack.Navigator>
     </View>
   );
