@@ -1,7 +1,7 @@
 
 
 import React, { useState } from "react";
-import { View, Text, TextInput, Image, TouchableOpacity } from 'react-native';
+import { View, Text, TextInput, Image, TouchableOpacity, KeyboardAvoidingView, ImageBackground, ActivityIndicator } from 'react-native';
 import logo from '../../assets/logoCorInvertida.png'
 import fritaBackground from '../../assets/fritasBackground.png'
 import lancheBackground from '../../assets/lancheBackground.png'
@@ -48,13 +48,12 @@ export function Login(props: LoginProps) {
                 </View>
                 {loginPage ? <LoginModePage setIsSigned={props.setIsSigned} setUserObject={props.setUserObject} /> : <CadastrarModePage />}
             </View>
-            { loginPage ? <Batata /> : <Lanche />}
         </View>
     );
 }
 function Batata(){
     return (
-        <Image 
+        <ImageBackground 
         source={fritaBackground} 
         style={{position: 'absolute', left: 0, bottom: 0, height: undefined, width: '50%', aspectRatio: 295 / 340}}
         resizeMode={'cover'}
@@ -63,7 +62,7 @@ function Batata(){
 }
 function Lanche(){
     return (
-        <Image 
+        <ImageBackground 
                 source={lancheBackground} 
                 style={{position: 'absolute', right: 0, bottom: 0, height: undefined, width: '50%', aspectRatio: 255 / 253}}
                 resizeMode={'cover'}
@@ -76,6 +75,7 @@ function LoginModePage(props: LoginProps){
     const [emailText, setEmailText] = useState('')
     const [passwordText, setPasswordText] = useState('')
     const [erroLogin, setErroLogin] = useState(false)
+    const [loading, setLoading] = useState(false)
     return (
       <View style={{width: '100%', display: 'flex', alignItems: 'center'}}>
         {erroLogin ? <ErroLoginMsg /> : null}
@@ -106,24 +106,32 @@ function LoginModePage(props: LoginProps){
         <TouchableOpacity
           style={styles.botaoEntrar}
           onPress={async () => {
-            const response = axios
-              .post(`http://${ip}:3333/signin`, {
-                email: emailText,
-                senha: passwordText,
-              })
-              .then((response) => {
-                const resposta = response.data;
-                if (resposta.logged) {
-                  props.setUserObject(resposta.user);
-                  props.setIsSigned(true);
-                } else {
-                  setErroLogin(true);
-                }
-              });
+            if (emailText == null || passwordText == null){
+                setLoading(false)
+                setErroLogin(true)
+            }
+            else{
+                const response = axios
+                .post(`http://${ip}:3333/signin`, {
+                    email: emailText,
+                    senha: passwordText,
+                })
+                .then((response) => {
+                    const resposta = response.data;
+                    if (resposta.logged) {
+                    props.setUserObject(resposta.user);
+                    props.setIsSigned(true);
+                    } else {
+                    setErroLogin(true);
+                    }
+                    setLoading(false)
+                });
+            }
           }}
         >
           <Text style={{ color: "white", fontSize: 20 }}>Entrar</Text>
         </TouchableOpacity>
+        {loading ? <ActivityIndicator color={'#971515'} style={{marginTop: 24}} size={32}/>: null}
       </View>
     );
 }

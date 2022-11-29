@@ -12,5 +12,8 @@ export const styles = StyleSheet.create({
     backgroundColor: '#971515',
     alignItems: 'center',
     justifyContent: 'center'
+  },
+  fontTextPrato: {
+    fontSize: 18
   }
 });

@@ -32,5 +32,60 @@ export const styles = StyleSheet.create({
     backgroundColor: '#971515',
     alignItems: 'center',
     justifyContent: 'center'
+  },
+  reservaDateContainer: {
+    display: 'flex', 
+    flexDirection: 'row', 
+    marginTop: 70, 
+    marginLeft: 52,
+    alignItems: 'center'
+  },
+  botaoPegarData: {
+    borderWidth: 2,
+    borderColor: '#971515',
+    borderRadius: 7,
+    padding: 8,
+    marginLeft: 8
+  },
+  caixaObservacao: {
+    width: '80%',
+    borderRadius: 16,
+    borderColor: '#971515',
+    borderWidth: 2,
+    height: 150,
+    padding: 8
+  },
+  carrinhoItemContainer: {
+    flexDirection: 'row',
+    alignSelf: 'center',
+    marginTop: 32,
+    alignItems: 'center',
+    width: '80%',
+    borderRadius: 12,
+    borderWidth: 2,
+    borderColor: '#971515',
+    paddingHorizontal: 12,
+    paddingVertical: 16
+  },
+  unidadeContainer:{
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginLeft: 44,
+    marginTop: 42
+  },
+  unityTextCount: {
+    padding: 4,
+    borderWidth: 2,
+    borderColor: '#971515',
+    borderRadius: 8,
+    width: 30,
+    height: 30,
+    textAlign: 'center',
+    marginRight: 32
+  },
+  shadowProp: {
+    elevation: 25,
+    shadowColor: '#570d0d',
   }
 });

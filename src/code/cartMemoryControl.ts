@@ -20,10 +20,15 @@ const addOnCart = async (item: object)=>{
         initCart.push(item)
         await AsyncStorage.setItem('carrinho', JSON.stringify([item]))
     }
+    return 'added'
 }
-const deleteOnCart = async (id: string) =>{
+const deleteOnCart = async (indexParam: number) =>{
     const carrinho = await getCart()
-    const newCarrinho = carrinho.filter((value: {id: string }) => value.id != id)
+    const newCarrinho = carrinho.filter((value:string, index:number) => index != indexParam)
     await AsyncStorage.setItem('carrinho', JSON.stringify(newCarrinho))
+    return await getCart()
 }
-export {addOnCart, getCart, deleteOnCart}
+const cleanCarrinho = async () =>{
+    await AsyncStorage.setItem('carrinho', '')
+}
+export {addOnCart, getCart, deleteOnCart, cleanCarrinho}

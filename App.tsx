@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react'
-import { StyleSheet, Text, View, Image, ImageBackground, StatusBar } from 'react-native';
+import { StyleSheet, Text, View, Image, ImageBackground, StatusBar, LogBox } from 'react-native';
 import { Home } from './src/Screens/Home';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
@@ -14,7 +14,7 @@ import { Cart } from './src/Screens/Cart';
 
 
 const Tab = createBottomTabNavigator<myTabParamsList>()
-
+LogBox.ignoreAllLogs(true)
 export default function App() {
   const [isSigned, setIsSigned] = useState(false)
   const [userObject, setUserObject] = useState({id: '', nome: '', uri_foto_usuario: '', email: '', telefone: ''})
@@ -38,13 +38,13 @@ export default function App() {
           return focused ? <HomeIcon color={color} size={44}/> : <HomeIcon color={color} size={44}/>
         },
       }} />
-      <Tab.Screen component={Explore} name='Search' initialParams={userObject} options={{
+      {/*<Tab.Screen component={Explore} name='Search' initialParams={userObject} options={{
         tabBarLabel: 'Pesquisar',
         tabBarIcon: ({focused, color, size})=> {
           return focused ? <SearchIcon color={color} size={44}/> : <SearchIcon color={color} size={44}/>
         }
-      }}/>
-      <Tab.Screen component={Cart} name='Cart' options={{
+      }}/>*/}
+      <Tab.Screen component={Cart} name='Cart' initialParams={{id: userObject.id}} options={{
         tabBarLabel: 'Carrinho',
         tabBarIcon: ({focused, color, size})=> {
           return focused ? <CartIcon color={color} size={44}/> : <CartIcon color={color} size={44}/>

@@ -10,7 +10,6 @@ import { BottomTabNavigationProp  } from '@react-navigation/bottom-tabs'
 import { styles } from './styles';
 import logoGoWaiter from '../../assets/logo.png'
 import myTabParamsList from '../../type'
-import getLocation from 'react-native-get-location'
 import Geolocation from 'react-native-geolocation-service';
 import { getCart } from '../../code/cartMemoryControl';
 import axios from 'axios';
@@ -19,6 +18,11 @@ import { FlatList } from 'react-native-gesture-handler';
 import { RestauranteScreen }  from '../RestauranteScreen'
 import voltarImg from '../../assets/backButton.png'
 import { PratoScreen } from '../PratoScreen';
+import SelectDropdown from 'react-native-select-dropdown'
+import setaParaBaixo from '../../assets/setaBaixoDropMenu.png'
+import { PratoReserva } from '../PratoReserva';
+import { ReservaConfirmadaScreen } from '../ReservaConfirmadaScreen';
+import { AdicionadoCarrinho } from '../AdicionadoCarrinho';
 
 type navigationProps = {
   navigation: BottomTabNavigationProp <myTabParamsList, 'Home'>
@@ -39,9 +43,35 @@ export type HomeStackParamsList = {
   },
   PratoScreen: {
     idUser: string,
-    id: string,
-  }
+    objectPrato: {
+      id: string,
+      nome: string,
+      uri_foto_prato: string,
+      preco: number,
+      ingredientes: string,
+      descricao: string,
+      disponivel: boolean,
+      tempo_preparo: number,
+      acompanhamentos: string
+    },
+    idRestaurante: string,
+    nomeRestaurante: string
+  },
+  PratoReserva: {
+    idUser: string,
+    objectPrato: {
+      id: string,
+      nome: string,
+      preco: number,
+      ingredientes: string,
+      acompanhamentos: string
+    },
+    idRestaurante: string,
+    nomeRestaurante: string
+  },
+  AdicionadoAoCarrinho: {
 
+  }
 }
 type InitialPageProps = {
   navigation: NativeStackNavigationProp<HomeStackParamsList, 'InitialPage'>
@@ -188,6 +218,7 @@ const InitialPage = ({ navigation, route }: InitialPageProps) => {
 
 function RestaurantesListScreen({ navigation, route }: RestaurantesPageProps){
   const [restaurantes, setRestaurantes ] = useState([])
+  const [distancia, setDistancia ] = useState(10)
   const RenderItems = ({ item }:{
     item: {
       distance: number,
@@ -199,7 +230,7 @@ function RestaurantesListScreen({ navigation, route }: RestaurantesPageProps){
     }
   }) => {
     return (
-      <View style={{width: 140, marginLeft: '10%', marginBottom: 16}}>
+      <View style={{width: 140, marginBottom: 16}}>
         <TouchableWithoutFeedback onPress={()=>{
           navigation.navigate('RestaurantePage', {idUser: route.params.id, idRestaurante: item.id, nomeRestaurante: item.nome})
         }}>
@@ -215,13 +246,13 @@ function RestaurantesListScreen({ navigation, route }: RestaurantesPageProps){
         </TouchableWithoutFeedback>
       </View>
     )
-  }
+  } //Fim da renderItem
   useEffect(()=>{
     requestLocationPermission()
       Geolocation.getCurrentPosition((location)=>{
         const [latitude, longitude] = [location.coords.latitude, location.coords.longitude]
         console.log(latitude, longitude)
-        axios.get(`http://${ip}:3333/restaurantes/${latitude},${longitude}?max=10`).then((resposta)=>{
+        axios.get(`http://${ip}:3333/restaurantes/${latitude},${longitude}?max=${distancia}${route.params.sortBy === 'avaliacao' ? '&sort=avaliacao' : '' }`).then((resposta)=>{
         setRestaurantes(resposta.data)
         })
       }, (erro)=> {
@@ -229,15 +260,19 @@ function RestaurantesListScreen({ navigation, route }: RestaurantesPageProps){
       }, {
         enableHighAccuracy: true
       })
-  }, [])
+  }, [distancia])
   return (
     <View style={{flex: 1, backgroundColor: 'white', justifyContent: 'center', alignItems: 'center'}}>
       <TouchableOpacity onPress={()=> navigation.goBack()} style={{marginLeft: 40, marginTop: 24, alignSelf: 'flex-start'}}><Image source={voltarImg}/></TouchableOpacity>
-      <FlatList data={dataTeste} renderItem={RenderItems} numColumns={2} keyExtractor={(item, index ) => item.id} style={{width: '100%', marginTop: 32}}/>
+      <View style={{alignSelf: 'flex-start', marginLeft: 40, marginTop: 32}}>
+        <SelectDropdown defaultValue={10} data={[2, 5, 10, 15, 20, 25, 30]} rowTextForSelection={( item )=> `${item}Km`} buttonTextAfterSelection={(selectedItem) => `${selectedItem}Km`} buttonStyle={{width: 96, borderColor: '#971515', borderWidth: 2, borderRadius: 6, backgroundColor: 'white', height: 50}} onSelect={(selectedItem) => setDistancia(selectedItem)} renderDropdownIcon={()=> (<Image source={setaParaBaixo} style={{width: 12, height: undefined, aspectRatio: 1}} resizeMode="cover"/>)} />
+      </View>
+      <FlatList data={restaurantes} renderItem={RenderItems} numColumns={2} keyExtractor={(item, index ) => item.id} style={{width: '100%', marginTop: 32}} columnWrapperStyle={{justifyContent: 'space-around'}}/>
     </View>
   )
 }
 export function Home({ navigation, route }: navigationProps) {
+  getCart().then(resposta => console.log(resposta))
   return (
     <View style={styles.container}>
         <HomeStack.Navigator screenOptions={{
@@ -257,6 +292,10 @@ export function Home({ navigation, route }: navigationProps) {
           <HomeStack.Screen name='SortedPage' component={RestaurantesListScreen} initialParams={{id: route.params.id, sortBy: 'avaliacao'}}/>
           <HomeStack.Screen name='RestaurantePage' component={RestauranteScreen} initialParams={{idUser: route.params.id, idRestaurante: ''}}/>
           <HomeStack.Screen name='PratoScreen' component={PratoScreen} initialParams={{idUser: route.params.id}}/>
+          <HomeStack.Screen name='PratoReserva' component={PratoReserva} initialParams={{idUser: route.params.id}}/>
+          <HomeStack.Group screenOptions={{presentation: 'transparentModal'}}>
+            <HomeStack.Screen name='AdicionadoAoCarrinho' component={AdicionadoCarrinho}/>
+          </HomeStack.Group>
         </HomeStack.Navigator>
     </View>
   );
